@@ -38,20 +38,4 @@ Key data quality checks performed include:
 
 ---
 
-## Files and Scripts
 
-| File | Description |
-|------|-------------|
-| `scan_inconsistencies.py` | Main script that scans datasets, applies all data quality checks, and generates Excel/HTML reports. |
-| `helper_functions.py` | Supporting functions for data cleaning, logging, and reporting. |
-| `Task_8_GitHub_Link.txt` | Text file containing GitHub repository link (for submissions). |
-| `example_dataset/` | Folder containing sample datasets for testing scripts (optional). |
-
----
-
-## How to Use
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/abdbata/Retail_Orders_Analytics.git
-cd Retail_Orders_Analytics

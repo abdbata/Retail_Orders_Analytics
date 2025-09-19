@@ -1,0 +1,10 @@
+KPI,Descriptions,Formula,Granularity
+Total Sales,Total revenue from orders (USD) for the selected period and slice.,SUM(Sales),"Month, State, Product, Customer, Segment"
+Total Quantity,Total units sold for the selected period and slice.,SUM(Quantity),"Month, State, Product, Customer, Segment"
+Monthly Sales by State,Sales trend per state over time.,SUM(Sales),"Month, State"
+Best Customers in Segment,Top customers within each segment by sales.,DENSE_RANK() OVER (PARTITION BY Segment ORDER BY SUM(Sales) DESC),"Segment, Customer"
+Top/Bottom Products by Sales (State),Products with the highest/lowest sales within each state.,DENSE_RANK() OVER (PARTITION BY State ORDER BY SUM(Sales) DESC/ASC),"State, Product"
+Delivery Days (Avg),Average time from order creation to shipment.,"AVG(DATEDIFF('day', CAST(Order_Date AS DATE), CAST(Ship_Date AS DATE)))","State, Product (for Top/Bottom by delivery time)"
+Profit,Total profit from orders (USD).,SUM(Profit),"Month, State, Product, Customer, Segment"
+Profit Margin %,Profit as a percentage of sales.,"SUM(Profit) / NULLIF(SUM(Sales), 0)","Month, State, Product, Customer, Segment"
+Distinct Customers,Number of unique customers in the selected slice.,COUNT(DISTINCT Customer_ID),"Month, State, Segment"

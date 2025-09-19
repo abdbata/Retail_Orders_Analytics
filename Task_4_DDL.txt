@@ -1,0 +1,103 @@
+CREATE TABLE dm.dm_sales_by_state_month (
+  state TEXT,
+  month TEXT,
+  total_sales DOUBLE PRECISION,
+  total_quantity BIGINT,
+  avg_price DOUBLE PRECISION,
+  avg_delivery_days DOUBLE PRECISION,
+  total_profit DOUBLE PRECISION,
+  profit_margin DOUBLE PRECISION,
+  distinct_customers BIGINT
+);
+
+CREATE TABLE dm.dm_best_customers (
+  customer_id TEXT,
+  customer_name TEXT,
+  segment TEXT,
+  total_sales DOUBLE PRECISION,
+  rank_in_segment BIGINT
+);
+
+CREATE TABLE dm.dm_products_by_state (
+  product_id TEXT,
+  product_name TEXT,
+  state TEXT,
+  total_sales DOUBLE PRECISION,
+  rank_top BIGINT,
+  rank_bottom BIGINT
+);
+
+CREATE TABLE dwh.dwh_fact_sales_order (
+  order_id CHARACTER VARYING(64) NOT NULL,
+  order_date DATE NOT NULL,
+  ship_date DATE,
+  delivery_days INTEGER,
+  ship_mode CHARACTER VARYING(64),
+  customer_sk BIGINT,
+  product_sk BIGINT NOT NULL,
+  geography_sk BIGINT,
+  sales NUMERIC,
+  quantity INTEGER,
+  discount NUMERIC,
+  profit NUMERIC,
+  source_month CHARACTER(6),
+  batch_loaded_at TIMESTAMP WITHOUT TIME ZONE
+);
+
+CREATE TABLE mdm.mdm_dim_customer (
+  customer_sk BIGINT NOT NULL,
+  customer_id CHARACTER VARYING(64) NOT NULL,
+  customer_name CHARACTER VARYING(256),
+  segment CHARACTER VARYING(64),
+  is_current BOOLEAN,
+  effective_from TIMESTAMP WITHOUT TIME ZONE,
+  effective_to TIMESTAMP WITHOUT TIME ZONE
+);
+
+CREATE TABLE mdm.mdm_dim_product (
+  product_sk BIGINT NOT NULL,
+  product_id CHARACTER VARYING(64) NOT NULL,
+  product_name CHARACTER VARYING(256),
+  sub_category CHARACTER VARYING(64),
+  category CHARACTER VARYING(64),
+  is_current BOOLEAN,
+  effective_from TIMESTAMP WITHOUT TIME ZONE,
+  effective_to TIMESTAMP WITHOUT TIME ZONE
+);
+
+CREATE TABLE mdm.mdm_dim_geography (
+  geography_sk BIGINT NOT NULL,
+  country CHARACTER VARYING(128),
+  state CHARACTER VARYING(128),
+  city CHARACTER VARYING(128) NOT NULL,
+  postal_code CHARACTER VARYING(32) NOT NULL,
+  region CHARACTER VARYING(64)
+);
+
+CREATE TABLE stg.stg_orders_raw (
+  row_id INTEGER NOT NULL,
+  order_id CHARACTER VARYING(64),
+  order_date DATE,
+  ship_date DATE,
+  ship_mode CHARACTER VARYING(64),
+  customer_id CHARACTER VARYING(64),
+  customer_name CHARACTER VARYING(256),
+  segment CHARACTER VARYING(64),
+  country CHARACTER VARYING(128),
+  city CHARACTER VARYING(128),
+  state CHARACTER VARYING(128),
+  postal_code CHARACTER VARYING(32),
+  region CHARACTER VARYING(64),
+  product_id CHARACTER VARYING(64),
+  category CHARACTER VARYING(64),
+  sub_category CHARACTER VARYING(64),
+  product_name CHARACTER VARYING(256),
+  sales NUMERIC,
+  quantity INTEGER,
+  discount NUMERIC,
+  profit NUMERIC,
+  source_file_name CHARACTER VARYING(256) NOT NULL,
+  source_month CHARACTER(6),
+  batch_loaded_at TIMESTAMP WITHOUT TIME ZONE,
+  batch_seq BIGINT
+);

@@ -1,0 +1,4 @@
+Data Mart System Name,Count Rows,Count Distinct Primary Key
+dm_sales_by_state_month,1253,49
+dm_best_customers,30,30
+dm_products_by_state,8242,1889
